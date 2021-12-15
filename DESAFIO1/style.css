@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+}
+
+#rangeInput {
+  width: 50%;
+}
+
+.box {
+  width: 50%;
+  text-align: center;
+}
