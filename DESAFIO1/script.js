@@ -1,7 +1,5 @@
 window.addEventListener('load', start);
 
-var numberSelected = null;
-
 function start(){
   var rangeInput = document.querySelector ('#rangeInput');
   var eventInput = rangeInput.addEventListener ('input',numberCapture);
@@ -9,108 +7,73 @@ function start(){
 }
 
 function numberCapture(event){
-  numberSelected = event.target.value;
-  
+  var numberSelected = event.target.value;
+
   var number = document.querySelector('#number');
   number.value = numberSelected;
-
-  var extensive = document.querySelector('#extensive');
-  extensiveShow(numberSelected);
-}
-
-function extensiveShow(numberSelected){
-  //extensive.value = smallerThousand(numberSelected);
   
-  if (numberSelected < 10){
-    extensive.value = smallerTem(numberSelected);
-  }
-  else if (numberSelected < 20){
-    extensive.value = smallerTwenty(numberSelected);
-  }
-  else if (numberSelected < 100){
-    extensive.value = smallerHandred(numberSelected[0]) + unity(numberSelected[1]);
-  }
-  else{
-    extensive.value = smallerThousand(numberSelected);
-  }
+  var stringNormalize = normalizeNumber(numberSelected);
+  extensiveShow(stringNormalize);
 }
 
-function smallerTem (numberSelected){
-  var unity = 0;
-  switch (numberSelected) {
-    case '0':
-      unity = 'zero';
-      break;
-    case '1':
-      unity = 'um';
-      break;
-    case '2':
-      unity = 'dois';
-      break;
-    case '3':
-      unity = 'três';
-      break;
-    case '4':
-      unity = 'quatro';
-      break;
-    case '5':
-      unity = 'cinco';
-      break;
-    case '6':
-      unity = 'seis';
-      break;
-    case '7':
-      unity = 'sete';
-      break;
-    case '8':
-      unity = 'oito';
-      break;
-    default:
-      unity = 'nove';
+function normalizeNumber (numberSelected){
+  var normalizeString = '';
+  if (numberSelected.length === 1){
+    normalizeString = '00'+numberSelected;
+  }else if (numberSelected.length === 2){
+    normalizeString = '0'+numberSelected;
+  }else{
+    normalizeString = numberSelected;
   }
-  return unity;
+  return normalizeString;
+}
+
+function extensiveShow(stringNormalized){
+  var extensive = document.querySelector('#extensive');
+  extensive.value = hundred(stringNormalized);
 }
 
 function smallerTwenty (numberSelected){
-  var retorno;
+  var number;
   switch (numberSelected) {
     case '10':
-      retorno = 'dez';
+      number = 'dez';
       break;
     case '11':
-      retorno = 'onze';
+      number = 'onze';
       break;
     case '12':
-      retorno = 'doze';
+      number = 'doze';
       break;
     case '13':
-      retorno = 'treze';
+      number = 'treze';
       break;
     case '14':
-      retorno = 'quartoze';
+      number = 'quartoze';
       break;
     case '15':
-      retorno = 'quinze';
+      number = 'quinze';
       break;
     case '16':
-      retorno = 'dezesseis';
+      number = 'dezesseis';
       break;
     case '17':
-      retorno = 'dezessete';
+      number = 'dezessete';
       break;
     case '18':
-      retorno = 'dezoito';
+      number = 'dezoito';
       break;
     default:
-      retorno = 'dezenove';
+      number = 'dezenove';
   }
-  return retorno;
+  return number;
 }
 
 function unity (numberSelected){
   var unity = 0;
-  switch (numberSelected) {
+  switch (numberSelected[2]) {
     case '0':
+      if(numberSelected[0]=='0' && numberSelected[1]== '0') return 'zero';
       unity = '';
       break;
     case '1':
@@ -143,9 +106,15 @@ function unity (numberSelected){
   return unity;
 }
 
-function smallerHandred (numberSelected){
+function ten (numberSelected){
   var ten;
-  switch (numberSelected) {
+  switch (numberSelected[1]) {
+    case '0':
+      ten = unity (numberSelected);;
+      break;
+    case '1':
+      ten = smallerTwenty (numberSelected.substring(1));
+      break;
     case '2':
       ten = 'vinte';
       break;
@@ -170,118 +139,51 @@ function smallerHandred (numberSelected){
     default:
       ten = 'noventa';
   }
+  if((numberSelected[1] > 1) && (numberSelected[2]) != '0'){
+    return (ten + ' e ' + unity(numberSelected));
+  }
   return ten;
 }
 
-function smallerThousand (numberSelected){
-  var centena = null;
-  var centenaCompleta = null;
+function hundred (numberSelected){
+  var hundred = null;
   switch (numberSelected[0]) {
+    case '0':
+      return ten(numberSelected);
+      break;
     case '1':
       if(numberSelected=='100'){
-        centena = 'cem'
+        hundred = 'cem'
       }else{
-        centena = 'cento';
+        hundred = 'cento';
       }
       break;
     case '2':
-      centena = 'duzentos';
+      hundred = 'duzentos';
       break;
     case '3':
-      centena = 'trezentos';
+      hundred = 'trezentos';
       break;
     case '4':
-      centena = 'quatrocentos';
+      hundred = 'quatrocentos';
       break;
     case '5':
-      centena = 'quinhentos';
+      hundred = 'quinhentos';
       break;
     case '6':
-      centena = 'seiscentos';
+      hundred = 'seiscentos';
       break;
     case '7':
-      centena = 'setecentos';
+      hundred = 'setecentos';
       break;
     case '8':
-      centena = 'oitocentos';
+      hundred = 'oitocentos';
       break;
     default:
-      centena = 'novecentos';
+      hundred = 'novecentos';
   }
-  if(numberSelected[1]!='0'){
-    centenaCompleta = centena +' e '+ten(numberSelected);
-    return centenaCompleta;
-  }else{
-    return centena;
+  if(numberSelected[1]=='0' && numberSelected[2]=='0'){
+      return hundred
   }
-}
-
-function ten (numberSelected){
-  var ten;
-  if (numberSelected[2]=='0'){
-    switch (numberSelected[1]) {
-      case '0':
-        ten = unity (numberSelected.substring(2));;
-        break;
-      case '1':
-        ten = smallerTwenty (numberSelected.substring(1));
-        break;
-      case '2':
-        ten = 'vinte'+unity(numberSelected[2]);
-        break;
-      case '3':
-        ten = 'trinta'+unity(numberSelected[2]);
-        break;
-      case '4':
-        ten = 'quarenta'+unity(numberSelected[2]);
-        break;
-      case '5':
-        ten = 'cinquenta'+unity(numberSelected[2]);
-        break;
-      case '6':
-        ten = 'sessenta'+unity(numberSelected[2]);
-        break;
-      case '7':
-        ten = 'setenta'+unity(numberSelected[2]);
-        break;
-      case '8':
-        ten = 'oitenta'+unity(numberSelected[2]);
-        break;
-      default:
-        ten = 'noventa'+unity(numberSelected[2]);
-    }
-  }else{
-    switch (numberSelected[1]) {
-      case '0':
-        ten = unity (numberSelected.substring(2));;
-        break;
-      case '1':
-        ten = smallerTwenty (numberSelected.substring(1));
-        break;
-      case '2':
-        ten = 'vinte e '+unity(numberSelected[2]);
-        break;
-      case '3':
-        ten = 'trinta e '+unity(numberSelected[2]);
-        break;
-      case '4':
-        ten = 'quarenta e '+unity(numberSelected[2]);
-        break;
-      case '5':
-        ten = 'cinquenta e '+unity(numberSelected[2]);
-        break;
-      case '6':
-        ten = 'sessenta e '+unity(numberSelected[2]);
-        break;
-      case '7':
-        ten = 'setenta e '+unity(numberSelected[2]);
-        break;
-      case '8':
-        ten = 'oitenta e '+unity(numberSelected[2]);
-        break;
-      default:
-        ten = 'noventa e '+unity(numberSelected[2]);
-    }
-  }
-  return ten;
+  return (hundred +' e '+ ten(numberSelected));
 }
