@@ -1,40 +1,37 @@
 window.addEventListener('load', start);
 
 function start(){
-  var rangeInput = document.querySelector ('#rangeInput');
-  var eventInput = rangeInput.addEventListener ('input',numberCapture);
+  let rangeInput = document.querySelector ('#rangeInput');
+  let eventInput = rangeInput.addEventListener ('input',numberCapture);
   numberCapture(eventInput);
 }
 
 function numberCapture(event){
-  var numberSelected = event.target.value;
+  let numberSelected = event.target.value;
 
-  var number = document.querySelector('#number');
+  let number = document.querySelector('#number');
   number.value = numberSelected;
   
-  var stringNormalize = normalizeNumber(numberSelected);
+  let stringNormalize = normalizeNumber(numberSelected);
   extensiveShow(stringNormalize);
 }
 
 function normalizeNumber (numberSelected){
-  var normalizeString = '';
   if (numberSelected.length === 1){
-    normalizeString = '00'+numberSelected;
-  }else if (numberSelected.length === 2){
-    normalizeString = '0'+numberSelected;
-  }else{
-    normalizeString = numberSelected;
+    return ('00'+numberSelected);
+  }if (numberSelected.length === 2){
+    return ('0'+numberSelected);
   }
-  return normalizeString;
+  return (numberSelected);
 }
 
 function extensiveShow(stringNormalized){
-  var extensive = document.querySelector('#extensive');
+  let extensive = document.querySelector('#extensive');
   extensive.value = hundred(stringNormalized);
 }
 
 function smallerTwenty (numberSelected){
-  var number;
+  let number;
   switch (numberSelected) {
     case '10':
       number = 'dez';
@@ -70,7 +67,7 @@ function smallerTwenty (numberSelected){
 }
 
 function unity (numberSelected){
-  var unity = 0;
+  let unity = 0;
   switch (numberSelected[2]) {
     case '0':
       if(numberSelected[0]=='0' && numberSelected[1]== '0') return 'zero';
@@ -107,7 +104,7 @@ function unity (numberSelected){
 }
 
 function ten (numberSelected){
-  var ten;
+  let ten;
   switch (numberSelected[1]) {
     case '0':
       ten = unity (numberSelected);;
@@ -146,7 +143,7 @@ function ten (numberSelected){
 }
 
 function hundred (numberSelected){
-  var hundred = null;
+  let hundred = null;
   switch (numberSelected[0]) {
     case '0':
       return ten(numberSelected);
