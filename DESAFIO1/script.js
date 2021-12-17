@@ -1,8 +1,8 @@
 window.addEventListener('load', start);
 
 function start(){
-  let rangeInput = document.querySelector ('#rangeInput');
-  let eventInput = rangeInput.addEventListener ('input',numberCapture);
+  const rangeInput = document.querySelector ('#rangeInput');
+  const eventInput = rangeInput.addEventListener ('input',numberCapture);
   numberCapture(eventInput);
 }
 
@@ -26,7 +26,7 @@ function normalizeNumber (numberSelected){
 }
 
 function extensiveShow(stringNormalized){
-  let extensive = document.querySelector('#extensive');
+  const extensive = document.querySelector('#extensive');
   extensive.value = hundred(stringNormalized);
 }
 
