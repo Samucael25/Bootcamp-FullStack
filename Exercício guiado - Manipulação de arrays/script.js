@@ -126,8 +126,27 @@ function renderSumary() {
   totalPopulationList.textContent = totalPopulation;
   totalPopulationFavorites.textContent = totalFavorites;
 }
-function handleCountryButtons() {}
+function handleCountryButtons() {
+  const countryButtons = Array.from(tabCountries.querySelectorAll('.btn'));
+  const favoritesButtons = Array.from(tabFavorites.querySelectorAll('.btn'));
+  
+  countryButtons.forEach(button => {
+    button.addEventListener('click', () => addToFavorites(button.id));
+  });
 
+  favoritesButtons.forEach(button => {
+    button.addEventListener('click', () => removeFromFavorites(button.id));
+  });
+}
+
+function addToFavorites (id){
+  const countryToAdd = allCountries.find(button => button.id === id);
+  favoriteCountries = [...favoriteCountries,countryToAdd];
+}
+
+function removeFromFavorites (id){
+
+}
 
 
 
