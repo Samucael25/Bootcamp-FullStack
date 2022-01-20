@@ -50,34 +50,82 @@ async function fetchCountries () {
 function render(){
   renderCountryList();
   renderFavorites();
-  rederSumary();
+  renderSumary();
   handleCountryButtons();
 }
 
 function renderCountryList() {
-  let contriesHTML = "<div>";
+  let countriesHTML = "<div>";
   allCountries.forEach(country => {
     const { name, flag, id, population } = country;
     const countryHTML = `
-      <div class="country">
+      <div class='country'>
         <div>
+          <a id="${id}" class="waves-effect waves-light btn">+</a>
+        </div>
+          
+        <div>
+          <img src="${flag}" alt="${name}">
         </div>
 
         <div>
-        </div>
-
-        <div>
+          <ul>
+            <li>${name}</li>
+            <li>${population}</li>
+          </ul>
         </div>
       </div>
     `;
+    countriesHTML += countryHTML;
   });
+  countriesHTML += '</div>';
+  tabCountries.innerHTML = countriesHTML;
 }
 
 function renderFavorites() {
+  let favoritesHTML = '<div>';
+  favoriteCountries.forEach (country =>{
+    const { name, flag, id, population } = country;
+    const favoriteCountryHTML = `
+      <div class='country'>
+        <div>
+          <a id="${id}" class="waves-effect waves-light btn red darken-4">-</a>
+        </div>
+          
+        <div>
+          <img src="${flag}" alt="${name}">
+        </div>
 
+        <div>
+        <ul>
+          <li>${name}</li>
+          <li>${population}</li>
+        </ul>
+        </div>
+      </div>
+    `;
+    favoritesHTML += favoriteCountryHTML;
+  });
+
+  favoritesHTML += '</div>';
+  tabFavorites.innerHTML = favoritesHTML;
 }
 
-function rederSumary() {}
+function renderSumary() {
+  countCountries.textContent = allCountries.length;
+  countFavorites.textContent = favoriteCountries.length;
+
+  const totalPopulation = allCountries.reduce((accumulator, current) =>{
+    return accumulator + current.population;
+  }, 0);
+
+  const totalFavorites = favoriteCountries.reduce((accumulator, current) =>{
+    return accumulator + current.population;
+  }, 0);
+
+  totalPopulationList.textContent = totalPopulation;
+  totalPopulationFavorites.textContent = totalFavorites;
+}
 function handleCountryButtons() {}
 
 
