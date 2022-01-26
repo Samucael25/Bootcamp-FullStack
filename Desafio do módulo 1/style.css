@@ -1,0 +1,36 @@
+body {
+  text-align: center;
+}
+
+.findUsers {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  font-size: 20pt;
+}
+
+#inputButton {
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#inputSearch {
+  width: 80%;
+  border-color: darkslategray;
+  font-size: 20pt;
+}
+
+.results {
+  display: flex;
+}
+
+.titles,
+.resultsExibition {
+  width: 40%;
+}
+
+#findUsers,
+#statistics {
+  width: 100%;
+}

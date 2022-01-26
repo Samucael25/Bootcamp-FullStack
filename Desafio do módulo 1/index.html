@@ -4,9 +4,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <title>Desafio Módulo 1</title>
 </head>
 <body>
-  <script src="script.js"></script>
+  <h1 id="title">Pesquisa de usuários</h1>
+
+  <div class="findUsers">
+    <label for="inputSearch" id="find">Buscar: </label>
+    <input type="text" autofocus id="inputSearch"/>
+    <input type="submit" value="Buscar" id="inputButton">
+  </div>
+  
+  <div class="results">
+    <div class="titles">
+      <h2 id="">Nenhum usuário encontrado</h2>
+      <span id="findUsers"></span>
+      
+    </div>
+
+    <div class="resultsExibition">
+      <h2>Nenhuma estatística calculada</h2>
+      <span id="statistics"></span>
+    </div>
+  </div>
+
+  <script defer src="script.js"></script>
 </body>
 </html>
