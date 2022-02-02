@@ -23,6 +23,7 @@ body {
 
 .results {
   display: flex;
+  text-align: center;
 }
 
 .titles,
@@ -33,4 +34,5 @@ body {
 #findUsers,
 #statistics {
   width: 100%;
+  text-align: left;
 }
