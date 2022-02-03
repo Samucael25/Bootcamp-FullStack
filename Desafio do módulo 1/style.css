@@ -26,8 +26,8 @@ body {
   text-align: center;
 }
 
-.titles,
-.resultsExibition {
+.resultsFindUsers,
+.resultsStatistics {
   width: 40%;
 }
 
@@ -35,4 +35,8 @@ body {
 #statistics {
   width: 100%;
   text-align: left;
+}
+
+#picture {
+  border-radius: 10px;
 }

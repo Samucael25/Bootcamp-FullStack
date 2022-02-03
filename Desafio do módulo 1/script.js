@@ -1,13 +1,12 @@
 let allPeople = null;
-let inputSearch = document.querySelector ('#inputSearch');
-let numberFindUsers = document.querySelector('#numberFindUsers');
-let titleStatistics = document.querySelector('#titleStatistics');
-let statistics = document.querySelector('#statistics');
+const inputSearch = document.querySelector ('#inputSearch');
+const inputButton = document.querySelector ('#inputButton');
+const titleFindUsers = document.querySelector('#titleFindUsers');
+const titleStatistics = document.querySelector('#titleStatistics');
+const statistics = document.querySelector('#statistics');
+const findUsers = document.querySelector ('#findUsers');
 
-window.addEventListener('load', () => {
-  readDataFromBackend();
-});
-
+window.addEventListener('load', () => readDataFromBackend());
 
 async function readDataFromBackend() {
   const resource = await fetch('http://localhost:3001/users');
@@ -25,83 +24,74 @@ async function readDataFromBackend() {
 }
 
 function render(){
-  numberFindUsers.innerHTML = `<div>Nenhum usuário encontrado</div>`;
-  titleStatistics.innerHTML = `<div>Nenhuma estatística calculada</div>`;
-  inputSearch = document.addEventListener ('keyup',filteredList);
+  startPage();
+  inputSearch.addEventListener('keyup',(event) => {
+    if (event.key === 'Enter') {
+      filteredList(inputSearch.value);
+    }
+  });
+  inputButton.addEventListener('click',(event) => filteredList(inputSearch.value));
 }
 
-function filteredList(event){
-  let name = event.target.value;
+function startPage(){
+  titleFindUsers.innerHTML = `<div>Nenhum usuário encontrado</div>`;
+  titleStatistics.innerHTML = `<div>Nenhuma estatística calculada</div>`;
+  findUsers.innerHTML = ``;
+  statistics.innerHTML = ``;
+}
+
+function filteredList(name){
   let namesFind = allPeople.filter(person => {
     return person.nameComplete.toLowerCase().includes(name.toLowerCase());
   });
-  //console.log(namesFind);
-  showFilteredList(namesFind);
-  calculateStatistics (namesFind);
+  if (!((namesFind.length === 0) || (namesFind.length === allPeople.length) || (inputSearch.value === ''))){
+    return showFilteredList(namesFind);
+  }
+  render();
 }
 
 function showFilteredList (namesFindList) {
-  let findUsers = document.querySelector ('#findUsers');
-  let namesHtml = '<div>';
+  let namesHtml = '<div class="namesList">';
   let countNames = 0;
-  
   namesFindList.forEach(person => {
     let peopleHtml = `
-    <div class = "namesList">
-      <div>
-        <img src="${person.picture.thumbnail}"> ${person.nameComplete}, ${person.age} anos
+      <div class="dataPerson">
+        <img src="${person.picture.thumbnail}" id="picture"> ${person.nameComplete}, ${person.age} anos
       </div>
     `;
     namesHtml += peopleHtml;
     countNames++;
-    //console.log(person.picture.thumbnail);
   });
-  
-  if (namesFindList.length===allPeople.length){
-    namesHtml = '<div>';
-  }
-
-  modifyTitles (countNames);
   namesHtml += '</div>';
   findUsers.innerHTML = namesHtml;
+  calculateStatistics (namesFindList, countNames);
 }
 
-function calculateStatistics (namesForStatistics){  
+function calculateStatistics (namesForStatistics, countNames){ 
   let countMale = namesForStatistics.filter(person => {
     return person.gender === 'male';
   }).length;
-  //console.log(countMale);
 
   let countFemale = namesForStatistics.filter(person => {
     return person.gender === 'female';
   }).length;
-  //console.log(countFemale);
 
   let sumAge = namesForStatistics.reduce((accumulator, current) => {
     return accumulator + current.age;
   },0);
-  //console.log(sumAge);
 
-  let averageAge = sumAge/namesForStatistics.length;
-    //console.log(averageAge);
+  let averageAge = sumAge/countNames;
 
   statistics.innerHTML = `
-    <p id='countMale'>Sexo masculino: ${countMale}</p>
-    <p id='countFemale'>Sexo feminino: ${countFemale}</p>
-    <p id='sumAge'>Soma das idades: ${sumAge}</p>
-    <p id='averageAge'>Média das idades: ${averageAge}</p>
-  `;
-
-  if ((namesForStatistics.length===allPeople.length)){
-    statistics.innerHTML = ``;
-  }
+      <p id='countMale'>Sexo masculino: ${countMale}</p>
+      <p id='countFemale'>Sexo feminino: ${countFemale}</p>
+      <p id='sumAge'>Soma das idades: ${sumAge}</p>
+      <p id='averageAge'>Média das idades: ${averageAge}</p>
+    `;
+    modifyTitles (countNames);
 }
 
 function modifyTitles (countNames){
-  if (countNames === 0 || countNames === 100){
-    render();
-  } else {
-    numberFindUsers.innerHTML = `<div>${countNames} usuários encontrados</div>`;
-    titleStatistics.innerHTML = `<div>Estatísticas</div>`;
-  }
+  titleFindUsers.innerHTML = `<div>${countNames} usuários encontrados</div>`;
+  titleStatistics.innerHTML = `<div>Estatísticas</div>`;
 }
