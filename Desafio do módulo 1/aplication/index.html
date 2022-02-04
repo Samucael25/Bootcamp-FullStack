@@ -12,22 +12,23 @@
 
   <div class="findUsers">
     <label for="inputSearch" id="find">Buscar: </label>
-    <input type="text" autofocus id="inputSearch"/>
-    <input type="submit" value="Buscar" id="inputButton">
+    <input type="text" autofocus id="inputSearch" placeholder="Digite um nome ou parte de um nome"/>
+    <input type="submit" value="Buscar dados" id="inputButton">
   </div>
-  
-  <div class="results">
-    <div class="resultsFindUsers">
-      <h2 id="titleFindUsers"></h2>
-      <span id="findUsers"></span>
-    </div>
+  <span id="miniListNames"></span>
+  <div id="containerResults">
+    <div class="results" id="results">
+      <div class="resultsFindUsers">
+        <h2 id="titleFindUsers"></h2>
+        <span id="findUsers"></span>
+      </div>
 
-    <div class="resultsStatistics">
-      <h2 id="titleStatistics"></h2>
-      <span id="statistics"></span>
+      <div class="resultsStatistics">
+        <h2 id="titleStatistics"></h2>
+        <span id="statistics"></span>
+      </div>
     </div>
   </div>
-
   <script defer src="./script.js"></script>
 </body>
 </html>

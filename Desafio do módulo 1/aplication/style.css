@@ -1,34 +1,77 @@
 body {
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(images/background.jfif);
+  background-size: 100%;
+  background-attachment: fixed;
 }
 
 .findUsers {
-  margin-top: 20px;
-  margin-bottom: 40px;
+  display: flex;
   font-size: 20pt;
+  align-items: center;
+  justify-content: center;
 }
 
-#inputButton {
-  width: 80px;
-  height: 30px;
-  font-size: 15px;
+#find {
   font-weight: bold;
 }
 
 #inputSearch {
-  width: 80%;
+  width: 60%;
+  height: 35px;
   border-color: darkslategray;
-  font-size: 20pt;
+  font-size: 15pt;
+  font-weight: bold;
+  background-color: lightgrey;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
-.results {
+#inputButton {
+  height: 40px;
+  width: 10%;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+#miniListNames {
+  font-size: 13pt;
+}
+
+.namesMinilist {
+  display: inline-flex;
+  color: grey;
+}
+
+#containerResults {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+#results {
   display: flex;
   text-align: center;
+  align-content: center;
+  width: 80%;
+  justify-content: center;
 }
 
 .resultsFindUsers,
 .resultsStatistics {
   width: 40%;
+  border-width: thin;
+  border-style: solid;
+  border-color: darkslategrey;
+  border-radius: 10px;
+  padding-left: 10px;
+  margin-left: 25px;
+  padding-bottom: 25px;
 }
 
 #findUsers,
@@ -39,4 +82,19 @@ body {
 
 #picture {
   border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.dataPerson {
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  align-items: center;
+}
+
+.nameAge {
+  padding-left: 8px;
 }
