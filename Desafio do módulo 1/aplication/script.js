@@ -81,7 +81,7 @@ function showFilteredList (namesFindList) {
   namesFindList.forEach(person => {
     let peopleHtml = `
       <div class="dataPerson">
-        <img src="${person.picture.thumbnail}" id="picture"> <div class="nameAge">${person.nameComplete}, ${person.age} anos</div>
+        <img src="${person.picture.thumbnail}" id="picture" alt="${person.nameComplete}"> <div class="nameAge">${person.nameComplete}, ${person.age} anos</div>
       </div>
     `;
     namesHtml += peopleHtml;

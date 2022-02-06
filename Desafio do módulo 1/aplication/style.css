@@ -31,7 +31,7 @@ body {
 
 #inputButton {
   height: 40px;
-  width: 10%;
+  width: 130px;
   font-size: 15px;
   font-weight: bold;
   background-color: white;
@@ -97,4 +97,17 @@ h2 {
 
 .nameAge {
   padding-left: 8px;
+}
+
+#copyleftLogo {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
